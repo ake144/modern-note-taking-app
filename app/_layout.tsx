@@ -20,6 +20,7 @@ export default function RootLayout() {
       }}>
         {/* <Stack.Screen name="(tabs)" options={{ headerShown: false }} /> */}
         <Stack.Screen name="Login" options={{ headerShown: false }} />
+        <Stack.Screen name="Register" options={{ headerShown: false }} />
         <Stack.Screen name="(notes)" options={{ headerShown: false }} />
       </Stack> 
         <StatusBar style="auto" />

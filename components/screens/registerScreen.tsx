@@ -4,11 +4,11 @@ import { ThemedView } from '@/components/themed-view';
 import { ThemedText } from '@/components/themed-text';
 import { useThemeColor } from '@/hooks/use-theme-color';
 import { login, register } from '@/services/auth';
-import { Link } from 'expo-router';
 
 
-export default function LoginScreen({ navigation }: any) {
+export default function SignUpScreen({ navigation }: any) {
   const [email, setEmail] = useState('');
+  const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const textColor = useThemeColor({}, 'text');
   const background = useThemeColor({}, 'background');
@@ -20,6 +20,7 @@ export default function LoginScreen({ navigation }: any) {
   };
 
   const handleRegister = async () => {
+    // If you want to save `name` to the user profile, update `services/auth` to accept it
     await register(email, password);
     navigation.replace('Notes');
   };
@@ -27,8 +28,20 @@ export default function LoginScreen({ navigation }: any) {
   return (
     <ThemedView style={[styles.container, { backgroundColor: background }] }>
       <ThemedText type="title" style={styles.title}>
-        My Church Login
+        Create your account
       </ThemedText>
+
+      <ThemedText type="subtitle" style={styles.label}>
+        Full name (optional)
+      </ThemedText>
+      <TextInput
+        value={name}
+        onChangeText={setName}
+        style={[styles.input, { color: textColor, borderColor: tint, backgroundColor: background === '#fff' ? '#f6f8fa' : '#1a1c1d' }]}
+        placeholder="Jane Doe"
+        placeholderTextColor={background === '#fff' ? '#6b7280' : '#9BA1A6'}
+        autoCapitalize="words"
+      />
 
       <ThemedText type="subtitle" style={styles.label}>
         Email
@@ -57,15 +70,12 @@ export default function LoginScreen({ navigation }: any) {
         autoCapitalize="none"
       />
 
-      <TouchableOpacity style={[styles.button, { backgroundColor: tint }]} onPress={handleLogin}>
-        <Text style={[styles.buttonText, { color: '#fff' }]}>Login</Text>
+      <TouchableOpacity style={[styles.button, { backgroundColor: tint }]} onPress={handleRegister} accessibilityLabel="Sign up">
+        <Text style={[styles.buttonText, { color: '#fff' }]}>Sign up</Text>
       </TouchableOpacity>
 
-
-      <TouchableOpacity style={[styles.secondaryButton]} onPress={handleRegister}>
-        <Link href="/register">
-              <Text style={[styles.buttonText, { color: tint }]}>Register</Text>
-        </Link>
+      <TouchableOpacity style={[styles.secondaryButton]} onPress={() => navigation.replace('Login')} accessibilityLabel="Have an account login">
+        <Text style={[styles.buttonText, { color: tint }]}>Already have an account? Log in</Text>
       </TouchableOpacity>
     </ThemedView>
   );
