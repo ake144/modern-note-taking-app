@@ -14,7 +14,10 @@ export default function RootLayout() {
 
   return (
      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
+      <Stack  screenOptions={{
+        headerStyle:{backgroundColor: '#ddd'},
+        headerTintColor:"#333",
+      }}>
         {/* <Stack.Screen name="(tabs)" options={{ headerShown: false }} /> */}
         <Stack.Screen name="Login" options={{ headerShown: false }} />
         <Stack.Screen name="(notes)" options={{ headerShown: false }} />
