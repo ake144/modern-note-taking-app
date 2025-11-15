@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, TextInput, TouchableOpacity, Text } from 'react-native';
+import { View, StyleSheet, TextInput, TouchableOpacity, Text, Pressable } from 'react-native';
 import { ThemedView } from '@/components/themed-view';
 import { ThemedText } from '@/components/themed-text';
 import { useThemeColor } from '@/hooks/use-theme-color';
@@ -56,7 +56,11 @@ export default function LoginScreen({ navigation }: any) {
         placeholderTextColor={background === '#fff' ? '#6b7280' : '#9BA1A6'}
         autoCapitalize="none"
       />
-
+      <Pressable style={({pressed}) => [{ opacity: pressed ? 0.5 : 1 }, pressed && styles.pressed]} onPress={() => navigation.navigate('ForgotPassword')}>
+        <ThemedText type="subtitle" style={[{ alignSelf: 'flex-end', marginBottom: 16, color: tint }]}>
+          Forgot Password?
+        </ThemedText>
+      </Pressable>
       <TouchableOpacity style={[styles.button, { backgroundColor: tint }]} onPress={handleLogin}>
         <Text style={[styles.buttonText, { color: '#fff' }]}>Login</Text>
       </TouchableOpacity>
@@ -127,5 +131,8 @@ const styles = StyleSheet.create({
     label: {
       width: '100%',
       marginBottom: 8,
+    },
+    pressed: {
+      opacity: 0.5,
     }
 });
