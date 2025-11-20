@@ -3,9 +3,11 @@ import { auth } from '@/services/firebaseConfig';
 import { getNotes } from '@/services/firestore';
 import React, { useEffect, useState } from 'react';
 import { View, Text, Button, ScrollView } from 'react-native';
+import { useRouter } from 'expo-router';
 
-export default function NotesScreen({ navigation }: any) {
+export default function NotesScreen() {
   const [notes, setNotes] = useState<any[]>([]);
+  const router = useRouter();
 
   useEffect(() => {
     if (auth.currentUser) {
@@ -15,7 +17,7 @@ export default function NotesScreen({ navigation }: any) {
 
   return (
     <View style={{ flex: 1, padding: 20 }}>
-      <Button title="Add Note" onPress={() => navigation.navigate('AddNote')} />
+      <Button title="Add Note" onPress={() => router.push('/addNote')} />
       <Button title="Logout" onPress={logout} />
       <ScrollView style={{ marginTop: 20 }}>
         {notes.map(note => (

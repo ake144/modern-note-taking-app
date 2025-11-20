@@ -4,24 +4,25 @@ import { ThemedView } from '@/components/themed-view';
 import { ThemedText } from '@/components/themed-text';
 import { useThemeColor } from '@/hooks/use-theme-color';
 import { login, register } from '@/services/auth';
-import { Link } from 'expo-router';
+import { Link, useRouter } from 'expo-router';
 
 
-export default function LoginScreen({ navigation }: any) {
+export default function LoginScreen() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const textColor = useThemeColor({}, 'text');
   const background = useThemeColor({}, 'background');
   const tint = useThemeColor({}, 'tint');
+  const router = useRouter();
 
   const handleLogin = async () => {
     await login(email, password);
-    navigation.replace('Notes');
+    router.replace('/notes');
   };
 
   const handleRegister = async () => {
     await register(email, password);
-    navigation.replace('Notes');
+    router.replace('/notes');
   };
 
   return (
@@ -56,7 +57,7 @@ export default function LoginScreen({ navigation }: any) {
         placeholderTextColor={background === '#fff' ? '#6b7280' : '#9BA1A6'}
         autoCapitalize="none"
       />
-      <Pressable style={({pressed}) => [{ opacity: pressed ? 0.5 : 1 }, pressed && styles.pressed]} onPress={() => navigation.navigate('ForgotPassword')}>
+      <Pressable style={({pressed}) => [{ opacity: pressed ? 0.5 : 1 }, pressed && styles.pressed]} onPress={() => router.push('/forgot-password')}>
         <ThemedText type="subtitle" style={[{ alignSelf: 'flex-end', marginBottom: 16, color: tint }]}>
           Forgot Password?
         </ThemedText>

@@ -4,25 +4,27 @@ import { ThemedView } from '@/components/themed-view';
 import { ThemedText } from '@/components/themed-text';
 import { useThemeColor } from '@/hooks/use-theme-color';
 import { login, register } from '@/services/auth';
+import { useRouter } from 'expo-router';
 
 
-export default function SignUpScreen({ navigation }: any) {
+export default function SignUpScreen() {
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const textColor = useThemeColor({}, 'text');
   const background = useThemeColor({}, 'background');
   const tint = useThemeColor({}, 'tint');
+  const router = useRouter();
 
   const handleLogin = async () => {
     await login(email, password);
-    navigation.replace('Notes');
+    router.replace('/notes');
   };
 
   const handleRegister = async () => {
     // If you want to save `name` to the user profile, update `services/auth` to accept it
     await register(email, password);
-    navigation.replace('Notes');
+    router.replace('/notes');
   };
 
   return (
@@ -74,7 +76,7 @@ export default function SignUpScreen({ navigation }: any) {
         <Text style={[styles.buttonText, { color: '#fff' }]}>Sign up</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={[styles.secondaryButton]} onPress={() => navigation.replace('Login')} accessibilityLabel="Have an account login">
+      <TouchableOpacity style={[styles.secondaryButton]} onPress={() => router.replace('/login')} accessibilityLabel="Have an account login">
         <Text style={[styles.buttonText, { color: tint }]}>Already have an account? Log in</Text>
       </TouchableOpacity>
     </ThemedView>

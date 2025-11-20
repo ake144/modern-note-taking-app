@@ -4,13 +4,15 @@ import { ThemedView } from '@/components/themed-view';
 import { ThemedText } from '@/components/themed-text';
 import { useThemeColor } from '@/hooks/use-theme-color';
 import { resetPassword } from '@/services/auth';
+import { useRouter } from 'expo-router';
 
-export default function ForgotPasswordScreen({ navigation }: any) {
+export default function ForgotPasswordScreen() {
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
   const textColor = useThemeColor({}, 'text');
   const background = useThemeColor({}, 'background');
   const tint = useThemeColor({}, 'tint');
+  const router = useRouter();
 
   const handleReset = async () => {
     if (!email) {
@@ -19,10 +21,10 @@ export default function ForgotPasswordScreen({ navigation }: any) {
     }
 
     try {
-      setLoading(true);
-      await resetPassword(email);
-      Alert.alert('Email sent', 'If an account exists for that email, a password reset link has been sent.');
-      navigation.replace('Login');
+  setLoading(true);
+  await resetPassword(email);
+  Alert.alert('Email sent', 'If an account exists for that email, a password reset link has been sent.');
+  router.replace('/login');
     } catch (e: any) {
       console.warn('resetPassword error', e);
       const message = e?.message || 'Unable to send password reset email.';
@@ -57,7 +59,7 @@ export default function ForgotPasswordScreen({ navigation }: any) {
         <Text style={[styles.buttonText, { color: '#fff' }]}>{loading ? 'Sending...' : 'Send reset link'}</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={[styles.secondaryButton]} onPress={() => navigation.replace('Login')}>
+      <TouchableOpacity style={[styles.secondaryButton]} onPress={() => router.replace('/login')}>
         <Text style={[styles.buttonText, { color: tint }]}>Back to login</Text>
       </TouchableOpacity>
     </ThemedView>
