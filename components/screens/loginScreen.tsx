@@ -5,6 +5,7 @@ import { ThemedText } from '@/components/themed-text';
 import { useThemeColor } from '@/hooks/use-theme-color';
 import { login, register } from '@/services/auth';
 import { Link, useRouter } from 'expo-router';
+import { Alert } from 'react-native';
 
 
 export default function LoginScreen() {
@@ -16,8 +17,13 @@ export default function LoginScreen() {
   const router = useRouter();
 
   const handleLogin = async () => {
-    await login(email, password);
-    router.replace('/notes');
+    try {
+      await login(email, password);
+      router.replace('/notes');
+    } catch (e: any) {
+      console.warn('login error', e);
+      Alert.alert('Login failed', e?.message || 'Unable to sign in');
+    }
   };
 
   const handleRegister = async () => {

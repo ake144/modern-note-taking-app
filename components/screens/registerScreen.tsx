@@ -5,6 +5,7 @@ import { ThemedText } from '@/components/themed-text';
 import { useThemeColor } from '@/hooks/use-theme-color';
 import { login, register } from '@/services/auth';
 import { useRouter } from 'expo-router';
+import { Alert } from 'react-native';
 
 
 export default function SignUpScreen() {
@@ -22,9 +23,13 @@ export default function SignUpScreen() {
   };
 
   const handleRegister = async () => {
-    // If you want to save `name` to the user profile, update `services/auth` to accept it
-    await register(email, password);
-    router.replace('/notes');
+    try {
+      await register(email, password);
+      router.replace('/notes');
+    } catch (e: any) {
+      console.warn('register error', e);
+      Alert.alert('Registration failed', e?.message || 'Unable to create account');
+    }
   };
 
   return (
