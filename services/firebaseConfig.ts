@@ -1,10 +1,18 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { initializeAuth } from 'firebase/auth';
+import { initializeAuth,getReactNativePersistence  } from 'firebase/auth';
 import type { Auth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 import { getStorage } from 'firebase/storage';
 import Constants from 'expo-constants';
+import ReactNativeAsyncStorage from '@react-native-async-storage/async-storage';
+
+
+// AsyncStorage is required dynamically at runtime below so builds that don't
+// have the native package installed won't fail at type-check time.
+// The module is loaded with `require('@react-native-async-storage/async-storage')`
+
+
 // Note: AsyncStorage and the react-native persistence helper are loaded
 // dynamically at runtime below. This avoids static type/build failures in
 // environments (web/CI) that don't have the native package installed.
@@ -73,12 +81,11 @@ try {
   // from the firebase auth react-native entry so TypeScript doesn't fail
   // when the optional dependency isn't present during static checks.
   // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const AsyncStorage = require('@react-native-async-storage/async-storage').default;
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const { getReactNativePersistence } = require('firebase/auth/react-native');
+
+
 
   auth = initializeAuth(app, {
-    persistence: getReactNativePersistence(AsyncStorage),
+    persistence: getReactNativePersistence(ReactNativeAsyncStorage),
   });
 } catch (e) {
   // Optional dependency missing or not supported in this environment.

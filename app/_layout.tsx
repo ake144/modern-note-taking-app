@@ -17,10 +17,12 @@ export default function RootLayout() {
       <Stack  screenOptions={{
         headerStyle:{backgroundColor: '#ddd'},
         headerTintColor:"#333",
+        headerShown:false,
+        headerShadowVisible: false,
       }}>
         {/* <Stack.Screen name="(tabs)" options={{ headerShown: false }} /> */}
         
-        <Stack.Screen  name='(main)' options={{ headerShown: false }} />
+        {/* <Stack.Screen  name='(main)' options={{ headerShown: false }} /> */}
         <Stack.Screen name="Login" options={{ headerShown: false }} />
         <Stack.Screen name="Register" options={{ headerShown: false }} />
         <Stack.Screen name="forgot-password" options={{ headerShown: false }} />

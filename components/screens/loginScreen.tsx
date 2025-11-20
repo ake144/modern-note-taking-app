@@ -21,8 +21,9 @@ export default function LoginScreen() {
   };
 
   const handleRegister = async () => {
-    await register(email, password);
-    router.replace('/notes');
+    // await register(email, password);
+    // router.replace('/notes');
+    router.push('/register');
   };
 
   return (
@@ -113,6 +114,7 @@ const styles = StyleSheet.create({
     buttonText: {
         fontWeight: '700',
         fontSize: 16,
+         color:"#d1d5db"
     },
     secondaryButton: {
       width: '100%',

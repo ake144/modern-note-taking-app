@@ -17,6 +17,8 @@ export default function AddNoteScreen() {
 
   return (
     <View style={{ flex: 1, padding: 20 }}>
+      <Button title="Back" onPress={() => router.back()} />
+        
       <TextInput placeholder="Title" value={title} onChangeText={setTitle} style={{ borderWidth: 1, marginBottom: 10 }} />
       <TextInput
         placeholder="Content"
