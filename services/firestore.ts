@@ -1,16 +1,31 @@
-import { addDoc, collection, getDocs, orderBy, query } from "firebase/firestore"
+import { addDoc, collection, getDocs, orderBy, query } from "firebase/firestore";
 import { db } from "./firebaseConfig";
 
-export const addNote= async (userId: string, title: string, content: string) => {
-      const ref = collection(db, `users/${userId}/notes`);
+export type NotePayload = {
+  title: string;
+  content: string;
+  color: string;
+  tags: string[];
+  isPinned: boolean;
+};
 
-      await addDoc(ref, {
-        title,
-        content,
-        createdAt: new Date()
-      } )
-    // Implementation for adding a note to Firestore
-}
+export const addNote = async (userId: string, note: NotePayload) => {
+  const ref = collection(db, `users/${userId}/notes`);
+
+  await addDoc(ref, {
+    title: note.title,
+    content: note.content,
+    color: note.color,
+    tags: note.tags,
+    isPinned: note.isPinned,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  });
+};
+
+
+
+
 
 
 export const getNotes = async (userId:string)=>{
