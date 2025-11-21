@@ -70,7 +70,7 @@ export default function LoginScreen() {
         </ThemedText>
       </Pressable>
       <TouchableOpacity style={[styles.button, { backgroundColor: tint }]} onPress={handleLogin}>
-        <Text style={[styles.buttonText, { color: '#fff' }]}>Login</Text>
+        <Text style={[styles.buttonText, { color: '#000000ff' }]}>Login</Text>
       </TouchableOpacity>
 
 
@@ -120,7 +120,8 @@ const styles = StyleSheet.create({
     buttonText: {
         fontWeight: '700',
         fontSize: 16,
-         color:"#d1d5db"
+         color:"#000000ff",
+
     },
     secondaryButton: {
       width: '100%',

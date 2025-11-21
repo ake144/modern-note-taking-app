@@ -17,7 +17,7 @@ export default function NotesScreen() {
 
   return (
     <View style={{ flex: 1, padding: 20 }}>
-      <Button title="Add Note" onPress={() => router.push('/addNote')} />
+      <Button title="Add Note" onPress={() => router.push('/notes/addNote')} />
       <Button title="Logout" onPress={logout} />
       <ScrollView style={{ marginTop: 20 }}>
         {notes.map(note => (
